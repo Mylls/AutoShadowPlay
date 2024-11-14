@@ -1,0 +1,7 @@
+## Interface: 11005
+## Title: AutoShadowPlay
+## Notes: Takes a screenshot on PvP Pivotal Moments and pet battle victories.
+## Author: Swonk
+## Version: 1.0
+
+AutoShadowPlay.lua
