@@ -8,7 +8,7 @@ frame:RegisterEvent("PET_BATTLE_OVER")
 
 frame:SetScript("OnEvent", function(self, event)
     if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-        local _, subEvent, _, sourceGUID, _, _, _, destGUID, destName, destFlags, _, spellId = CombatLogGetCurrentEventInfo()
+        local _, subEvent, _, sourceGUID, _, _, _, destGUID, destName, destFlags = CombatLogGetCurrentEventInfo()
 
         -- Check for player kills specifically from you (the player)
         if subEvent == "PARTY_KILL" and sourceGUID == UnitGUID("player") then
@@ -17,6 +17,15 @@ frame:SetScript("OnEvent", function(self, event)
                 -- Take a screenshot
                 Screenshot()
                 print("PvP Kill detected: Screenshot taken for kill on " .. (destName or "unknown"))
+            end
+        end
+
+        -- Check if the player has died
+        if subEvent == "UNIT_DIED" then
+            local destGUID = select(8, CombatLogGetCurrentEventInfo())
+            if destGUID == UnitGUID("player") then
+                Screenshot()
+                print("Player died: Screenshot taken.")
             end
         end
     elseif event == "PLAYER_LEAVING_WORLD" then
